@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Maze Solver — BFS / DFS / Greedy / A*</title>
+  <link rel="stylesheet" href="maze.css">
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div class="logo"></div>
+      <h1>Maze Solver — BFS · DFS · Greedy · A*</h1>
+    </div>
+    <div class="pill">Tip: Drag to draw walls • S to set Start • G to set Goal • Right-click to erase</div>
+  </header>
+
+  <main class="app">
+    <section class="panel board-wrap">
+      <canvas id="board"></canvas>
+      <div class="overlay">
+        <div class="pill" id="status">Ready</div>
+        <div class="pill">
+          Path len: <span id="pathLen">0</span> • 
+          Explored: <span id="expanded">0</span> • 
+          FPS: <span id="fps">0</span>
+        </div>
+      </div>
+    </section>
+
+    <aside class="panel sidebar">
+      <div class="card">
+        <h3>Algorithm</h3>
+        <div class="row">
+          <select id="algo">
+            <option value="bfs">Breadth-First Search (BFS)</option>
+            <option value="dfs">Depth-First Search (DFS)</option>
+            <option value="greedy">Greedy Best-First (h = Manhattan)</option>
+            <option value="astar">A* (f = g + h)</option>
+          </select>
+          <button class="primary" id="run">Run</button>
+          <button class="ghost" id="step">Step</button>
+          <button class="ghost" id="pause">Pause</button>
+          <button class="ghost" id="reset">Reset</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Grid</h3>
+        <div class="row" style="gap:12px; align-items:flex-end">
+          <label>Size
+            <select id="size">
+              <option>20</option>
+              <option selected>30</option>
+              <option>40</option>
+              <option>50</option>
+            </select>
+          </label>
+          <button id="clear" class="ghost">Clear Walls</button>
+          <button id="maze" class="ghost">Random Maze</button>
+        </div>
+        <div class="row" style="margin-top:10px">
+          <label style="width:100%">
+            Speed <input id="speed" type="range" min="1" max="120" value="60" style="width:100%">
+          </label>
+        </div>
+        <div class="grid-legend" style="margin-top:10px">
+          <div class="key"><div class="swatch" style="background:var(--cell)"></div>Empty</div>
+          <div class="key"><div class="swatch" style="background:var(--wall)"></div>Wall</div>
+          <div class="key"><div class="swatch" style="background:var(--start)"></div>Start</div>
+          <div class="key"><div class="swatch" style="background:var(--goal)"></div>Goal</div>
+          <div class="key"><div class="swatch" style="background:var(--closed)"></div>Visited</div>
+          <div class="key"><div class="swatch" style="background:var(--path)"></div>Path</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Tools</h3>
+        <div class="tools" id="tools">
+          <div class="tool active" data-tool="wall">Draw Walls</div>
+          <div class="tool" data-tool="erase">Erase</div>
+          <div class="tool" data-tool="start">Set Start (S)</div>
+          <div class="tool" data-tool="goal">Set Goal (G)</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Stats</h3>
+        <div class="stat"><span class="muted">Expanded nodes</span><strong id="sExpanded">0</strong></div>
+        <div class="stat"><span class="muted">Frontier size</span><strong id="sFrontier">0</strong></div>
+        <div class="stat"><span class="muted">Path length</span><strong id="sPath">0</strong></div>
+        <div class="stat"><span class="muted">Runtime (ms)</span><strong id="sTime">0</strong></div>
+      </div>
+
+      <div class="card" style="font-size:12px">
+        <h3>How to use</h3>
+        <ol>
+          <li>Choose a grid size; click <em>Random Maze</em> or draw walls.</li>
+          <li>Use tools (or press <strong>S</strong> / <strong>G</strong>) to set <em>Start</em> and <em>Goal</em>.</li>
+          <li>Select an algorithm and click <em>Run</em> to animate (or <em>Step</em>).</li>
+        </ol>
+      </div>
+    </aside>
+  </main>
+
+  <footer>
+    Built for learning search algorithms • 
+    <a href="#" onclick="alert('Made with vanilla JS + Canvas. No frameworks.')">About</a>
+  </footer>
+
+  <script src="maze.js"></script>
+</body>
+</html>
